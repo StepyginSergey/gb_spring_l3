@@ -120,4 +120,31 @@ DROP TABLE IF EXISTS simple_entities CASCADE;
 CREATE TABLE simple_entities (id bigserial PRIMARY KEY, name varchar(255));
 INSERT INTO simple_entities (name) VALUES ('item 1');
 
+DROP TABLE IF EXISTS buyer CASCADE;
+CREATE TABLE buyer (id bigserial PRIMARY KEY, name varchar(255));
+INSERT INTO buyer (name) VALUES
+('Tom'),
+('Bob'),
+('Adam');
+
+DROP TABLE IF EXISTS product CASCADE;
+CREATE TABLE product (id bigserial PRIMARY KEY, title varchar(255), price numeric(6, 2));
+INSERT INTO product (title, price) VALUES
+('milk', 79.90),
+('bread', 24.90),
+('butter', 220.00),
+('cheese', 350.55),
+('coca-cola', 69.90);
+
+DROP TABLE IF EXISTS "orders" CASCADE;
+CREATE TABLE "orders" (
+    id bigserial PRIMARY KEY,
+    order_number int,
+    buyer_id int,
+    product_id int,
+    FOREIGN KEY (buyer_id) REFERENCES buyer (id),
+    FOREIGN KEY (product_id) REFERENCES product (id),
+    product_price numeric(6, 2)
+);
+
 COMMIT;
